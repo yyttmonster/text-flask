@@ -1,7 +1,11 @@
 from flask import Flask
 from .config import Config
-from model import output
 
+app = Flask(__name__)
+app.config.from_object(Config)
+
+
+from model import output
 
 def runoverwrite(main=None, argv=None):
     import sys as _sys
@@ -12,8 +16,7 @@ def runoverwrite(main=None, argv=None):
     main(_sys.argv[:1] + flags_passthrough)
 
 
-app = Flask(__name__)
-app.config.from_object(Config)
+
 textObject = output.Text_recognition()
 runoverwrite(textObject.load_model)
 

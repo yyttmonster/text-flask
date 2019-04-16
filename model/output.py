@@ -13,15 +13,15 @@ from model.aster.protos import pipeline_pb2
 from model.aster.builders import model_builder
 from shapely.geometry import Polygon
 
-tf.app.flags.DEFINE_string('data_dir', '/home/yutao/project/text_flask/model/test_images/images', '')
+tf.app.flags.DEFINE_string('data_dir', os.getenv('ABSOLUTE_PATH')+'model/test_images/images', '')
 tf.app.flags.DEFINE_string('gpu_list', '0', '')
-tf.app.flags.DEFINE_string('checkpoint_path', '/home/yutao/project/text_flask/model/data/detection_ckpt/', '')
-tf.app.flags.DEFINE_string('output_dir', '/home/yutao/project/text_flask/model/test_images/output', '')
+tf.app.flags.DEFINE_string('checkpoint_path', os.getenv('ABSOLUTE_PATH')+'model/data/detection_ckpt/', '')
+tf.app.flags.DEFINE_string('output_dir', os.getenv('ABSOLUTE_PATH')+'model/test_images/output', '')
 tf.app.flags.DEFINE_bool('no_write_images', False, 'do not write images')
-tf.app.flags.DEFINE_string('words_path', '/home/yutao/project/text_flask/app/static/img/test_images/words/', '')
+tf.app.flags.DEFINE_string('words_path', os.getenv('ABSOLUTE_PATH')+'model/test_images//words/', '')
 
 flags = tf.app.flags
-tf.app.flags.DEFINE_string('exp_dir', '/home/yutao/project/text_flask/model/aster/experiments/demo/',
+tf.app.flags.DEFINE_string('exp_dir', os.getenv('ABSOLUTE_PATH')+'model/aster/experiments/demo/',
                            'Directory containing config, training log and evaluations')
 FLAGS = tf.app.flags.FLAGS
 
@@ -486,7 +486,7 @@ class Text_recognition():
         if boxes is None:
             json_dict['box_num'] = 0
             json_dict['annotations'] = []
-            cv2.imwrite('/home/yutao/project/text_flask/static/output/' + im_fn, im)
+            cv2.imwrite(os.getenv('ABSOLUTE_PATH')+'static/output/' + im_fn, im)
             return json_dict
 
         if boxes is not None:
@@ -545,14 +545,14 @@ class Text_recognition():
             box = self.sort_poly(box.astype(np.int32))
             if np.linalg.norm(box[0] - box[1]) < 5 or np.linalg.norm(box[3] - box[0]) < 5:
                 continue
-            print(box)
+            # print(box)
             cv2.polylines(image_out,[box],True,color=(0,0,255))
-        cv2.imwrite('/home/yutao/project/text_flask/app/static/output/'+image_name,image_out)
+        cv2.imwrite(os.getenv('ABSOLUTE_PATH')+'/app/static/output/'+image_name,image_out)
 
         json_dict["box_num"] =  boxes.shape[0]
         json_dict["annotations"] = annotations_list
 
-        with open("/home/yutao/project/text_flask/model/scenetext_result/scenetext_result.json", "w") as f:
+        with open(os.getenv('ABSOLUTE_PATH')+"model/scenetext_result/scenetext_result.json", "w") as f:
             json.dump(json_dict, f)
 
         return json_dict
@@ -570,4 +570,4 @@ def runoverwrite(main=None, argv=None):
 if __name__ == '__main__':
     textObject = Text_recognition()
     runoverwrite(textObject.load_model)
-    textObject.output()
+    textObject.output(os.path.join(os.getenv('ABSOLUTE_PATH'), os.getenv('UPLOAD_PATH'),'img_1.jpg'))

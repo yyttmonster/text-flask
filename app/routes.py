@@ -17,7 +17,7 @@ def upload_image():
     image = request.files['image']
     print(img_name,image)
     if image and img_name.split('.')[1] in os.environ.get('IMAGE_EXTENSION'):
-        file_path = os.path.join('/home/yutao/project/text_flask', os.environ.get('UPLOAD_PATH'),
+        file_path = os.path.join(os.getenv('ABSOLUTE_PATH'), os.getenv('UPLOAD_PATH'),
                                  image.filename)
         image.save(file_path)
         json_dict = textObject.output(file_path)

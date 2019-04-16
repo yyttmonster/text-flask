@@ -8,7 +8,6 @@
     <link href='/static/css/index.css' type="text/css" rel="stylesheet"/>
     <script src='/static/js/jQuery.min.js'></script>
     <script src="/static/js/semantic.min.js" ></script>
-    <script src="/static/js/main.js"></script>
 </head>
 <body>
 
@@ -50,7 +49,7 @@ formdata.append('name',files[i].name);
     contentType:false,
     success: function(datas){
     $('#outputImage').attr('src','static/output/'+files[i].name+'?'+Math.round(Math.random()*1000));
-    alert(datas['data']['box_num']);
+    <!--alert(datas['data']['box_num']);-->
     var xx = datas['data']['annotations'];
     <!--alert('bb'+xx[1]['text']);-->
 
@@ -60,10 +59,19 @@ formdata.append('name',files[i].name);
    for(var j = 0;j<lines;j++){
    innerhtml += '<tr>'+
                 '<td>'+xx[j*2]['text']+'</td>'+
-                '<td>'+xx[1]['bbox']+'</td>'+
-                '<td>'+xx[j*2]['text']+'</td>'+
-                '<td>'+xx[1]['bbox']+'</td>'+
+                '<td>'+xx[j*2]['bbox']+'</td>'+
+                '<td>'+xx[j*2+1]['text']+'</td>'+
+                '<td>'+xx[J*2+1]['bbox']+'</td>'+
             '</tr>';
+   }
+   if (lines == 1 || (box_num - lines*2) == 1){
+   nnerhtml += '<tr>'+
+                '<td>'+xx[box_num-1]['text']+'</td>'+
+                '<td>'+xx[box_num-1]['bbox']+'</td>'+
+                '<td>  </td>'+
+                '<td>  </td>'+
+            '</tr>';
+
    }
    $('#dataTbody').html(innerhtml);
 
@@ -158,10 +166,10 @@ formdata.append('name',files[i].name);
     </div>
 
     <div class="ui container">
-        <div class="ui black ribbon label" style="z-index:100; position: relative;top: 50px;left: -15px;"><i
+        <div class="ui black ribbon label" style="z-index:100; position: relative;top: 40px;left: -15px;"><i
                 class="tag icon"></i> Data
         </div>
-        <table class="ui selectable celled table" style="font-size: large; text-align: center">
+        <table class="ui selectable celled table" style="font-size: large; text-align: center;margin-top:0">
             <thead>
             <tr>
                 <th>Content</th>
