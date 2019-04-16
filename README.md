@@ -8,7 +8,7 @@ The web is build with Flask. While the application server is starting up, networ
 
 
 ### Contents
-1. [Usage](#Usage)
+1. [Setting](#Setting)
 2. [Download](#download)
 3. [Usage](#Usage)
 4. [example](#Example)
@@ -32,9 +32,20 @@ The web is build with Flask. While the application server is starting up, networ
 4. upload current image.
 5. view output.
 6. next image or re-select images and upload.
+
 [^1] Load some js and css files and the server is Inefficient, so it maybe take long time. If you don't want to waste time and can endure ugly page, you can annotate the css and js but jQuery in index.html.
 
 ### Example
 
-### Data_Flow
+![alt text]()
 
+
+### Data_Flow
+1. `flask run` : 
+  > (1) `main.py` set system environment variables[^1]  </br>
+  > (2) `app/_init_.py` (import app)  start up flask </br>
+  > (3) `model/output.py` begin to maintain a model object - restore checkpoint file and wait for input</br>
+
+[^1] In the project, variables set by .flaskenv are used in many places. So in the `main.py`, `import app` must be after the `load_dotenv()`
+
+3. upload image - 
