@@ -36,16 +36,28 @@ The web is build with Flask. While the application server is starting up, networ
 [^1] Load some js and css files and the server is Inefficient, so it maybe take long time. If you don't want to waste time and can endure ugly page, you can annotate the css and js but jQuery in index.html.
 
 ### Example
-
-![alt text]()
+1. input
+![alt text](
+https://github.com/yyttmonster/text-flask/master/demo_image/input.jpg
+)
+2. output
+![alt text](
+https://github.com/yyttmonster/text-flask/master/demo_image/output.jpg
+)
+3. data
+![alt text](
+https://github.com/yyttmonster/text-flask/master/demo_image/data.jpg
+)
 
 
 ### Data_Flow
 1. `flask run` : 
-  > (1) `main.py` set system environment variables[^1]  </br>
-  > (2) `app/_init_.py` (import app)  start up flask </br>
-  > (3) `model/output.py` begin to maintain a model object - restore checkpoint file and wait for input</br>
+   > (1) `main.py` set system environment variables[^1]  </br>
+   > (2) `app/_init_.py` (import app)  start up flask </br>
+   > (3) `model/output.py` begin to maintain a model object - restore checkpoint file and wait for input</br>
 
 [^1] In the project, variables set by .flaskenv are used in many places. So in the `main.py`, `import app` must be after the `load_dotenv()`
 
-3. upload image - 
+2. upload image :
+   > (1) `app/routes.py upload_image()` receive image and save into `model\test_images\images`</br>
+   > (2) `model/output.py` put image in the graph and output image will be saved in `app\static\output`. At the same time, `json_dict` variable store the text data and it will be forwarded to the page</br>
