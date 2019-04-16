@@ -37,10 +37,13 @@ The web is build with Flask. While the application server is starting up, networ
 
 ### Example
 1. input
+
 ![input](demo_image/input.jpg)
 2. output
+
 ![output](demo_image/output.jpg)
 3. data
+
 ![data](demo_image/data.jpg)
 
 
