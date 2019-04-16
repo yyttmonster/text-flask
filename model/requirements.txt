@@ -1,0 +1,15 @@
+tqdm==4.26.0
+six==1.11.0
+scipy==1.1.0
+numpy==1.15.4
+Pillow==5.4.1
+edit_distance==1.0.3
+editdistance==0.5.2
+protobuf==3.7.0
+plumbum==1.6.7
+Shapely==1.6.4.post2
+tensorflow==1.13.1
+
+tensorflow-gpu==1.4.0
+matplotlib==3.0.2
+py-opencv==3.4.2
