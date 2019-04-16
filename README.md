@@ -37,17 +37,11 @@ The web is build with Flask. While the application server is starting up, networ
 
 ### Example
 1. input
-![alt text](
-https://github.com/yyttmonster/text-flask/tree/master/demo_image/input.jpg
-)
+![input](demo_image/input.jpg)
 2. output
-![alt text](
-https://github.com/yyttmonster/text-flask/tree/master/demo_image/output.jpg
-)
+![output](demo_image/output.jpg)
 3. data
-![alt text](
-https://github.com/yyttmonster/text-flask/tree/master/demo_image/data.jpg
-)
+![data](demo_image/data.jpg)
 
 
 ### Data_Flow
