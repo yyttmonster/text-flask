@@ -7,10 +7,10 @@
     <link href="/static/css/semantic.min.css" type="text/css" rel="stylesheet">
     <link href='/static/css/index.css' type="text/css" rel="stylesheet"/>
     <script src='/static/js/jQuery.min.js'></script>
-    <script src="/static/js/semantic.min.js" ></script>
+    <script src="/static/js/semantic.min.js"></script>
 </head>
-<body>
-
+<body style="position:relative">
+<!--style="background-image: url('http://changegout.com/assets/images/contry_bg.jpg');position:absolute;width: 100%;height: 100%"-->
 <script>
 var i = 0;
 var files = null;
@@ -40,66 +40,75 @@ function upload(){
 let formdata = new FormData();
 formdata.append('image',files[i]);
 formdata.append('name',files[i].name);
- $.ajax({
-    url:"http://127.0.0.1:5000/upload_image",
-    type:'POST',
-    cache:false,
-    data:formdata,
-    processData:false,
-    contentType:false,
-    success: function(datas){
-    $('#outputImage').attr('src','static/output/'+files[i].name+'?'+Math.round(Math.random()*1000));
-    <!--alert(datas['data']['box_num']);-->
-    var xx = datas['data']['annotations'];
-    <!--alert('bb'+xx[1]['text']);-->
+$.ajax({
+url:"http://127.0.0.1:5000/upload_image",
+type:'POST',
+cache:false,
+data:formdata,
+processData:false,
+contentType:false,
+success: function(datas){
+$('#outputImage').attr('src','static/output/'+files[i].name+'?'+Math.round(Math.random()*1000));
+<!--alert(datas['data']['box_num']);-->
+var xx = datas['data']['annotations'];
+<!--alert('bb'+xx[1]['text']);-->
 
-    box_num = parseInt(datas['data']['box_num']);
-    lines = parseInt(box_num/2);
-    innerhtml = '';
-   for(var j = 0;j<lines;j++){
-   innerhtml += '<tr>'+
-                '<td>'+xx[j*2]['text']+'</td>'+
-                '<td>'+xx[j*2]['bbox']+'</td>'+
-                '<td>'+xx[j*2+1]['text']+'</td>'+
-                '<td>'+xx[J*2+1]['bbox']+'</td>'+
-            '</tr>';
-   }
-   if (lines == 1 || (box_num - lines*2) == 1){
-   nnerhtml += '<tr>'+
-                '<td>'+xx[box_num-1]['text']+'</td>'+
-                '<td>'+xx[box_num-1]['bbox']+'</td>'+
-                '<td>  </td>'+
-                '<td>  </td>'+
-            '</tr>';
-
-   }
-   $('#dataTbody').html(innerhtml);
-
-
-    },
-    error:function(){
-    alert('error');
-    }
-    });
+box_num = parseInt(datas['data']['box_num']);
+lines = parseInt(box_num/2);
+innerhtml = '';
+for(var j = 0;j<lines;j++){
+innerhtml += '<tr>'+
+'<td>'+xx[j*2]['text']+'</td>'+
+'<td>'+xx[j*2]['bbox']+'</td>'+
+'<td>'+xx[j*2+1]['text']+'</td>'+
+'<td>'+xx[j*2+1]['bbox']+'</td>'+
+'</tr>';
 }
- <!--$('#outputImage').attr('src',datas['img_src']+'{{'+'}}');-->
+if (lines == 1 || (box_num - lines*2) == 1){
+innerhtml += '<tr>'+
+'<td>'+xx[box_num-1]['text']+'</td>'+
+'<td>'+xx[box_num-1]['bbox']+'</td>'+
+'<td>  </td>'+
+'<td>  </td>'+
+'</tr>';
+
+}
+$('#dataTbody').html(innerhtml);
+
+
+},
+error:function(){
+alert('error');
+}
+});
+}
+<!--$('#outputImage').attr('src',datas['img_src']+'{{'+'}}');-->
+
 </script>
 
-<div class="ui attached menu" style="border: 0">
-    <div class="ui container" style="border: 0">
-        <a class="home" style="margin-top: 1%">
-            <i class="home icon"></i> Home
-        </a>
-    </div>
+<!--<div style="position: absolute;height: 5%;width: 10%;top: 6%;left: -1%;opacity: 0.3">-->
+<!--<img style="width: 100%;height: 100%;transform: rotate(-45deg);-moz-transform:rotate(-45deg);-->
+<!-- -webkit-transform:rotate(-45deg);-o-transform:rotate(-45deg);"-->
+<!--src="../source/img/logo_black.png"-->
+<!--&gt;-->
+<!--</div>-->
+
+<div style="position: absolute;height: 7%;width: 15%;top: -1%;right: 1%;opacity: 0.6">
+    <img style="width: 100%;height: 100%;"
+         src="/static/img/logo.png"
+    >
 </div>
+
+<h3 class="ui header" style="margin-left: 2%"><i class="500px icon" style="margin-right: 2px"></i>IAIR Text System</h3>
+
 
 <div class="ui two column doubling stackable grid container">
 
-    <div class="column">
+    <div class="column" style="width:46%;margin-right:2%">
         <div class="ui fluid image">
             <div class="ui black ribbon label" style="z-index:100 "><i class="tag icon"></i> Input</div>
             <div class="ui special cards">
-                <div class="card" style="width: 100%;">
+                <div class="card" style="width: 100%;background: rgba(255,255,255,0.5)">
                     <div class="blurring dimmable image">
                         <div class="ui dimmer">
                             <div class="content">
@@ -112,7 +121,7 @@ formdata.append('name',files[i].name);
                                 </div>
                             </div>
                         </div>
-                        <img id="originImage" style="width: 100%;height: 100%" src="static/img/img_1.jpg">
+                        <img id="originImage" style="width: 100%;height: 100%" src="/static/img/img_1.jpg">
                     </div>
                     <div class="content">
                         <a class="header" style="cursor: unset;">
@@ -127,97 +136,279 @@ formdata.append('name',files[i].name);
                         </a>
                     </div>
                     <div class="extra content">
-                        <a style=";width: 34%; margin: 0 40%"><i class="users icon"></i><span class="imageName"> IMAGE </span></a>
+                        <a style=";width: 34%; margin: 0 40%"><i class="folder open icon"></i><span class="imageName"> IMAGE </span></a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="column">
         <div class="ui fluid image">
             <div class="ui fluid image">
                 <div class="ui black ribbon label" style="z-index:100 "><i class="tag icon"></i>Output</div>
                 <div class="ui special cards">
-                    <div class="card" style="width: 100%">
+                    <div class="card" style="width: 100%;background: rgba(255,255,255,0.5)">
                         <div class="">
-                            <img class="big" id="outputImage" style="width: 100%;height: 100%"
+                            <img class="big" id="outputImage"
+                                 style="width: 100%;height: 100%;background: rgba(255,255,255,0.5)"
                                  src="/static/img/default.png">
                         </div>
-                        <div class="content">
-                            <a class="header" style="cursor: unset;">
-                                <div class="ui two column doubling stackable grid container">
-                                    <div class="column">
-                                        <p style="cursor: pointer;width: 34%;margin: 0 33%;visibility: hidden">UPLOAD</p>
-                                    </div>
-                                    <div class="column">
-                                        <p style="cursor: pointer;width: 34%;margin: 0 33%;visibility: hidden">NEXT</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                        <!--<div class="content">-->
+                            <!--<a class="header" style="cursor: unset;">-->
+                                <!--<div class="ui two column doubling stackable grid container">-->
+                                    <!--<div class="column">-->
+                                        <!--<p style="cursor: pointer;width: 34%;margin: 0 33%;visibility: hidden">-->
+                                            <!--UPLOAD</p>-->
+                                    <!--</div>-->
+                                    <!--<div class="column">-->
+                                        <!--<p style="cursor: pointer;width: 34%;margin: 0 33%;visibility: hidden">NEXT</p>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</a>-->
+                        <!--</div>-->
                         <div class="extra content">
-                            <a  style=";width: 34%; margin: 0 40%"><i class="users icon"></i><span class="imageName"> IMAGE </span></a>
+                            <a style=";width: 34%; margin: 0 40%"><i class="folder open icon"></i><span
+                                    class="imageName"> IMAGE </span></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 
-    <div class="ui container">
-        <div class="ui black ribbon label" style="z-index:100; position: relative;top: 40px;left: -15px;"><i
-                class="tag icon"></i> Data
-        </div>
-        <table class="ui selectable celled table" style="font-size: large; text-align: center;margin-top:0">
-            <thead>
-            <tr>
-                <th>Content</th>
-                <th>Position</th>
-                <th>Content</th>
-                <th>Position</th>
-            </tr>
-            </thead>
-            <tbody id="dataTbody">
-            <tr>
-                <td>image</td>
-                <td>None</td>
-                <td>image</td>
-                <td>None</td>
-            </tr>
-            <tr>
-                <td>image</td>
-                <td>None</td>
-                <td>image</td>
-                <td>None</td>
-            </tr>
-            <tr>
-                <td>image</td>
-                <td>None</td>
-                <td>image</td>
-                <td>None</td>
-            </tr>
-            <tr>
-                <td>image</td>
-                <td>None</td>
-                <td>image</td>
-                <td>None</td>
-            </tr>
+    <div class="column" style="width:46%;margin-left:2%">
+         <div class="ui black ribbon label" style="z-index:100; position: relative;top: 15px;left: -15px;"><i
+            class="tag icon"></i> Data
+    </div>
+    <table class="ui selectable celled table"
+           style="font-size: large;font-weight: bold; text-align: center;margin-top:0;background: rgba(255,255,255,0)">
+        <thead>
+        <tr>
+            <th style="background: rgba(0,0,0,0.1)">Content</th>
+            <th style="background: rgba(0,0,0,0.1)">Position</th>
+            <th style="background: rgba(0,0,0,0.1)">Content</th>
+            <th style="background: rgba(0,0,0,0.1)">Position</th>
+        </tr>
+        </thead>
+        <tbody id="dataTbody" style="font-weight: normal">
+        <tr class="color_change ">
+            <td>text</td>
+            <td>coordinate</td>
+            <td>text</td>
+            <td>coordinate</td>
+        </tr>
+        <tr>
+            <td>text</td>
+            <td>coordinate</td>
+            <td>text</td>
+            <td>coordinate</td>
+        </tr>
+        <tr>
+            <td>text</td>
+            <td>coordinate</td>
+            <td>text</td>
+            <td>coordinate</td>
+        </tr>
+        <tr>
+            <td>text</td>
+            <td>None</td>
+            <td>text</td>
+            <td>None</td>
+        </tr>
 
-            </tbody>
-        </table>
-
+        </tbody>
+    </table>
     </div>
 </div>
 
-<script>
-    $('.special.cards .image').dimmer({
-        on: 'hover'
-    });
+<!--<h4 style="margin-left:  20%;margin-right:  20%" class="ui horizontal divider header"><i-->
+        <!--class="file alternate outline icon"></i> Description </h4>-->
 
-    function addfile() {
-        document.getElementById("addfile").click();
-    }
+
+
+<script>
+$('.special.cards .image').dimmer({
+on: 'hover'
+});
+
+function addfile() {
+document.getElementById("addfile").click();
+}
+
 </script>
+
+<div class="footer"
+     style="background-color: rgba(40,66,78,0.5); width:100%;position: absolute; bottom: 0%;font-size: large;text-align: center;color: rgba(255,255,255,0.8)">
+    <p style="margin: 8px 0 0 0 ; padding: 0;opacity:0.6"><i class="copyright outline icon"></i> 2019&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i
+            class="users icon"></i> IAIR
+    </p>
+    <p style="margin-bottom: 6px;opacity:0.7 "> support by <a style="text-decoration:underline;color: #ffffff" href="http://flask.pocoo.org/">Flask</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Theme<a
+            style="text-decoration:underline;color: #ffffff" href="https://semantic-ui.com/"> semantic</a>
+    </p>
+</div>
+
+
+<!--<script src="../source/js/three.js"></script>-->
+
+
+<!--<script src="../source/js/WebGL.js"></script>-->
+<!--&lt;!&ndash;<script src="../source/js/stats.min.js"></script>&ndash;&gt;-->
+
+<!--<script type="x-shader/x-vertex" id="vertexshader">-->
+<!--attribute float scale;-->
+<!--void main() {-->
+<!--vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );-->
+<!--gl_PointSize = scale * ( 300.0 / - mvPosition.z );-->
+<!--gl_Position = projectionMatrix * mvPosition;-->
+<!--}-->
+<!--</script>-->
+
+<!--<script type="x-shader/x-fragment" id="fragmentshader">-->
+<!--uniform vec3 color;-->
+<!--void main() {-->
+<!--if ( length( gl_PointCoord - vec2( 0.5, 0.5 ) ) > 0.475 ) discard;-->
+<!--gl_FragColor = vec4( color, 1.0 );-->
+<!--}-->
+<!--</script>-->
+
+<!--<script>-->
+<!--if (WEBGL.isWebGLAvailable() === false) {-->
+<!--document.body.appendChild(WEBGL.getWebGLErrorMessage());-->
+<!--}-->
+<!--var SEPARATION = 100, AMOUNTX = 50, AMOUNTY = 50;-->
+<!--var container, stats;-->
+<!--var camera, scene, renderer,backgroundScene,backgroundCamera;-->
+<!--var particles, count = 0;-->
+<!--var mouseX = 0, mouseY = 0;-->
+<!--var windowHalfX = window.innerWidth / 2;-->
+<!--var windowHalfY = window.innerHeight / 2;-->
+<!--init();-->
+<!--animate();-->
+
+<!--function init() {-->
+
+<!--var texture = THREE.TextureLoader( '../source/img/contry_bg.jpg' );-->
+<!--var backgroundMesh = new THREE.Mesh(-->
+<!--new THREE.PlaneGeometry(2, 2, 0),-->
+<!--new THREE.MeshBasicMaterial({-->
+<!--envMap: texture-->
+<!--}));-->
+<!--backgroundMesh .material.depthTest = false;-->
+<!--backgroundMesh .material.depthWrite = false;-->
+<!--var backgroundScene = new THREE.Scene();-->
+<!--var backgroundCamera = new THREE.Camera();-->
+<!--backgroundScene .add(backgroundCamera );-->
+<!--backgroundScene .add(backgroundMesh );-->
+
+<!--container = document.getElementById('back_three');-->
+<!--// document.body.appendChild(container);-->
+<!--camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);-->
+<!--camera.position.y = 500;-->
+<!--camera.position.z = 1000;-->
+<!--scene = new THREE.Scene();-->
+<!--//-->
+<!--var numParticles = AMOUNTX * AMOUNTY;-->
+<!--var positions = new Float32Array(numParticles * 3);-->
+<!--var scales = new Float32Array(numParticles);-->
+<!--var i = 0, j = 0;-->
+<!--for (var ix = 0; ix < AMOUNTX; ix++) {-->
+<!--for (var iy = 0; iy < AMOUNTY; iy++) {-->
+<!--positions[i] = ix * SEPARATION - ((AMOUNTX * SEPARATION) / 2); // x-->
+<!--positions[i + 1] = 0; // y-->
+<!--positions[i + 2] = iy * SEPARATION - ((AMOUNTY * SEPARATION) / 2); // z-->
+<!--scales[j] = 1;-->
+<!--i += 3;-->
+<!--j++;-->
+<!--}-->
+<!--}-->
+<!--var geometry = new THREE.BufferGeometry();-->
+<!--geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3));-->
+<!--geometry.addAttribute('scale', new THREE.BufferAttribute(scales, 1));-->
+<!--var material = new THREE.ShaderMaterial({-->
+<!--uniforms: {-->
+<!--color: {value: new THREE.Color(0xffffff)},-->
+<!--},-->
+<!--vertexShader: document.getElementById('vertexshader').textContent,-->
+<!--fragmentShader: document.getElementById('fragmentshader').textContent-->
+<!--});-->
+<!--//-->
+<!--particles = new THREE.Points(geometry, material);-->
+<!--scene.add(particles);-->
+<!--//-->
+<!--renderer = new THREE.WebGLRenderer({antialias: true});-->
+<!--renderer.setPixelRatio(window.devicePixelRatio);-->
+<!--renderer.setSize(window.innerWidth, window.innerHeight);-->
+<!--container.appendChild(renderer.domElement);-->
+<!--// stats = new Stats();-->
+<!--// container.appendChild(stats.dom);-->
+<!--// document.addEventListener('mousemove', onDocumentMouseMove, false);-->
+<!--document.addEventListener('touchstart', onDocumentTouchStart, false);-->
+<!--// document.addEventListener('touchmove', onDocumentTouchMove, false);-->
+<!--//-->
+<!--window.addEventListener('resize', onWindowResize, false);-->
+<!--}-->
+
+<!--function onWindowResize() {-->
+<!--windowHalfX = window.innerWidth / 2;-->
+<!--windowHalfY = window.innerHeight / 2;-->
+<!--camera.aspect = window.innerWidth / window.innerHeight;-->
+<!--camera.updateProjectionMatrix();-->
+<!--renderer.setSize(window.innerWidth, window.innerHeight);-->
+<!--}-->
+
+<!--//-->
+<!--// function onDocumentMouseMove(event) {-->
+<!--//     mouseX = event.clientX - windowHalfX;-->
+<!--//     mouseY = event.clientY - windowHalfY;-->
+<!--// }-->
+
+<!--function onDocumentTouchStart(event) {-->
+<!--if (event.touches.length === 1) {-->
+<!--event.preventDefault();-->
+<!--mouseX = event.touches[0].pageX - windowHalfX;-->
+<!--mouseY = event.touches[0].pageY - windowHalfY;-->
+<!--}-->
+<!--}-->
+
+<!--// function onDocumentTouchMove(event) {-->
+<!--//     if (event.touches.length === 1) {-->
+<!--//         event.preventDefault();-->
+<!--//         mouseX = event.touches[0].pageX - windowHalfX;-->
+<!--//         mouseY = event.touches[0].pageY - windowHalfY;-->
+<!--//     }-->
+<!--// }-->
+
+<!--//-->
+<!--function animate() {-->
+<!--requestAnimationFrame(animate);-->
+<!--render();-->
+<!--// stats.update();-->
+<!--}-->
+
+<!--function render() {-->
+<!--// camera.position.x += (mouseX - camera.position.x) * .05;-->
+<!--// camera.position.y += (-mouseY - camera.position.y) * .05;-->
+<!--camera.lookAt(scene.position);-->
+<!--var positions = particles.geometry.attributes.position.array;-->
+<!--var scales = particles.geometry.attributes.scale.array;-->
+<!--var i = 0, j = 0;-->
+<!--for (var ix = 0; ix < AMOUNTX; ix++) {-->
+<!--for (var iy = 0; iy < AMOUNTY; iy++) {-->
+<!--positions[i + 1] = (Math.sin((ix + count) * 0.3) * 50) +-->
+<!--(Math.sin((iy + count) * 0.5) * 50);-->
+<!--scales[j] = (Math.sin((ix + count) * 0.3) + 1) * 8 +-->
+<!--(Math.sin((iy + count) * 0.5) + 1) * 8;-->
+<!--i += 3;-->
+<!--j++;-->
+<!--}-->
+<!--}-->
+<!--particles.geometry.attributes.position.needsUpdate = true;-->
+<!--particles.geometry.attributes.scale.needsUpdate = true;-->
+<!--renderer.render(backgroundScene , backgroundCamera );-->
+<!--renderer.render(scene, camera);-->
+<!--count += 0.1;-->
+<!--}-->
+<!--</script>-->
+
 </body>
+
 </html>

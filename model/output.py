@@ -546,7 +546,7 @@ class Text_recognition():
             if np.linalg.norm(box[0] - box[1]) < 5 or np.linalg.norm(box[3] - box[0]) < 5:
                 continue
             # print(box)
-            cv2.polylines(image_out,[box],True,color=(0,0,255))
+            cv2.polylines(image_out,[box],True,color=(0,255,0),thickness=3)
         cv2.imwrite(os.getenv('ABSOLUTE_PATH')+'/app/static/output/'+image_name,image_out)
 
         json_dict["box_num"] =  boxes.shape[0]
