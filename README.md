@@ -21,9 +21,11 @@ The web is build with Flask. While the application server is starting up, networ
    + output.py - `tf.app.flags` parameters for model restore.
 
 ### Download
-1. [resnet_v1_50 model](https://drive.google.com/drive/folders/1Wlq0GSlm06rB_Mk9eL5JccaL57_JU3jO?usp=sharing) or visit https://github.com/tensorflow/models/tree/master/official/resnet. It's placed in  `model\data\resnet_v1_50`.
-2. [detection model](https://drive.google.com/drive/folders/1Wlq0GSlm06rB_Mk9eL5JccaL57_JU3jO?usp=sharing). It's placed in `model\data\detection_ckpt`.
-3. [recognition model](https://drive.google.com/drive/folders/1Wlq0GSlm06rB_Mk9eL5JccaL57_JU3jO?usp=sharing). It's placed in `model\aster\experiments\demo\log`.
+1. [resnet_v1_50 model](https://pan.baidu.com/s/175XSH2LIrRU2YJ9FwJGIrg) or visit https://github.com/tensorflow/models/tree/master/official/resnet. It's placed in  `model\data\resnet_v1_50`.
+2. [detection model](https://pan.baidu.com/s/175XSH2LIrRU2YJ9FwJGIrg). It's placed in `model\data\detection_ckpt`.
+3. [recognition model](https://pan.baidu.com/s/175XSH2LIrRU2YJ9FwJGIrg). It's placed in `model\aster\experiments\demo\log`.
+
+***PSW: cj8r***
 
 ### Usage
 1. server start up - `flask run` in your Terminal.
