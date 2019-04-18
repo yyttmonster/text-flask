@@ -32,6 +32,7 @@ if (i<files.length){
 let biData = [];
 biData.push(files[i]);
 url = window.URL.createObjectURL(new Blob(biData,{type:"application/zip"}));
+$('.imageName').text(files[i].name);
 $('#originImage').attr('src',url);
 }
 }
@@ -64,7 +65,7 @@ innerhtml += '<tr>'+
 '<td>'+xx[j*2+1]['bbox']+'</td>'+
 '</tr>';
 }
-if (lines == 1 || (box_num - lines*2) == 1){
+if (box_num - lines*2 == 1){
 innerhtml += '<tr>'+
 '<td>'+xx[box_num-1]['text']+'</td>'+
 '<td>'+xx[box_num-1]['bbox']+'</td>'+
@@ -93,13 +94,13 @@ alert('error');
 <!--&gt;-->
 <!--</div>-->
 
-<div style="position: absolute;height: 7%;width: 15%;top: -1%;right: 1%;opacity: 0.6">
+<div style="position: absolute;height: 7%;width: 15%;top: -1%;right: 1%;opacity: 0.8">
     <img style="width: 100%;height: 100%;"
          src="/static/img/logo.png"
     >
 </div>
 
-<h3 class="ui header" style="margin-left: 2%"><i class="500px icon" style="margin-right: 2px"></i>IAIR Text System</h3>
+<h1 class="ui header" style="margin-left: 2%"><i class="500px icon" style="margin-right: 2px"></i>IAIR Text Recognition System</h1>
 
 
 <div class="ui two column doubling stackable grid container">
@@ -210,9 +211,9 @@ alert('error');
         </tr>
         <tr>
             <td>text</td>
-            <td>None</td>
+            <td>coordinate</td>
             <td>text</td>
-            <td>None</td>
+            <td>coordinate</td>
         </tr>
 
         </tbody>
