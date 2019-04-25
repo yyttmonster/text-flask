@@ -1,2 +1,4 @@
 ### Aster checkpoint 
-Aster checkpoint files should be in this folder. You can download from [here](https://drive.google.com/drive/folders/1Wlq0GSlm06rB_Mk9eL5JccaL57_JU3jO?usp=sharing). 
+Aster checkpoint files should be in this folder. You can download from [here](https://pan.baidu.com/s/175XSH2LIrRU2YJ9FwJGIrg). 
+
+***PSW: cj8r***

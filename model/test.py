@@ -4,24 +4,24 @@ import os
 import json
 import logging
 import numpy as np
-import detection.model_dc
+import model.detection.model_dc
 import tensorflow as tf
 from google.protobuf import text_format
-from detection.dc_hsv_rotate_flip import restore_rectangle
-import detection.locality_aware_nms as nms_locality
-from aster.protos import pipeline_pb2
-from aster.builders import model_builder
+from model.detection.dc_hsv_rotate_flip import restore_rectangle
+import model.detection.locality_aware_nms as nms_locality
+from model.aster.protos import pipeline_pb2
+from model.aster.builders import model_builder
 from shapely.geometry import Polygon
 
-tf.app.flags.DEFINE_string('data_dir', 'test_images/images', '')
+tf.app.flags.DEFINE_string('data_dir', '/home/yutao/project/text_flask/model/test_images/images', '')
 tf.app.flags.DEFINE_string('gpu_list', '0', '')
-tf.app.flags.DEFINE_string('checkpoint_path', 'data/detection_ckpt/', '')
-tf.app.flags.DEFINE_string('output_dir', 'test_images/output', '')
+tf.app.flags.DEFINE_string('checkpoint_path', '/home/yutao/project/text_flask/model/data/detection_ckpt/', '')
+tf.app.flags.DEFINE_string('output_dir', '/home/yutao/project/text_flask/model/test_images/output', '')
 tf.app.flags.DEFINE_bool('no_write_images', False, 'do not write images')
-tf.app.flags.DEFINE_string('words_path', 'test_images/words/', '')
+tf.app.flags.DEFINE_string('words_path', '/home/yutao/project/text_flask/model/test_images/words/', '')
 
 flags = tf.app.flags
-tf.app.flags.DEFINE_string('exp_dir', 'aster/experiments/demo/',
+tf.app.flags.DEFINE_string('exp_dir', '/home/yutao/project/text_flask/model/aster/experiments/demo/',
                            'Directory containing config, training log and evaluations')
 FLAGS = tf.app.flags.FLAGS
 
@@ -234,7 +234,7 @@ def main(argv=None):
         input_images = tf.placeholder(tf.float32, shape=[None, None, None, 3], name='input_images')
         global_step = tf.get_variable('global_step', [], initializer=tf.constant_initializer(0), trainable=False)
 
-        f_score, f_geometry = detection.model_dc.model(input_images, is_training=False)
+        f_score, f_geometry = model.detection.model_dc.model(input_images, is_training=False)
         variable_averages = tf.train.ExponentialMovingAverage(0.997, global_step)
         detection_saver = tf.train.Saver(variable_averages.variables_to_restore())
 

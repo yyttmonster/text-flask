@@ -8,8 +8,10 @@ editdistance==0.5.2
 protobuf==3.7.0
 plumbum==1.6.7
 Shapely==1.6.4.post2
-tensorflow==1.13.1
-
 tensorflow-gpu==1.4.0
 matplotlib==3.0.2
 py-opencv==3.4.2
+
+
+flask==1.0.2
+python-dotenv==0.10.1
