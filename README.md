@@ -29,13 +29,12 @@ The web is build with Flask. While the application server is starting up, networ
 
 ### Usage
 1. server start up - `flask run` in your Terminal.
-2. visit http://127.0.0.1:5000/ in your browser[^1].
+2. visit http://127.0.0.1:5000/ in your browser.
 3. select one or more images containing words as your input.
 4. upload current image.
 5. view output.
 6. next image or re-select images and upload.
 
-[^1] Load js and css files and the server is Inefficient, so it maybe take a long time. If you don't want to waste time and can endure ugly page, you can annotate the css and js but `jQuery.js` in index.html.
 
 ### Example
 1. input
