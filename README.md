@@ -4,7 +4,7 @@
 ### Introduction
 This is a web implementation of text recognition. 
 It's model consists of two parts - detection and recognition, of which recognition is ASTER : [An Attentional Scene Text Recognizer with Flexible Rectification](https://ieeexplore.ieee.org/document/8395027) implemented by [bgshih](https://github.com/bgshih/aster) . Base framework of detection part is [EAST: An Efficient and Accurate Scene Text Detector](https://arxiv.org/abs/1704.03155v2) and some improvements are added into the model. 
-The web is build with Flask. While the application server is starting up, network model will be stored and wait for image input until the server is shut down. You can choose more than one images and view their results one by one.
+The web is built with Flask. While the application server is starting up, network model will be stored and wait for image input until the server is shut down. You can choose more than one images and view their results one by one.
 
 
 ### Contents
